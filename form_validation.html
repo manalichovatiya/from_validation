@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+</head>
+<body>
+  <style>
+    .form{padding-top: 20px;margin: 0 auto;box-shadow: 1px 0.5px 10px 0.5px black;border-radius: 15px;height: 450px;width: 37%;}
+    h1{color: #3d3c39;padding-bottom: 20px;}
+    .required{display: none;font-size: 15px;color: red;text-transform: uppercase;margin-right: 150px;}
+    label{color: rgb(9, 9, 9);font-size: 20px;margin-bottom: 20px;margin-right: 200px;}
+    input{margin-top: 20px;font-size: 20px;margin-bottom: 20px;padding: 10px;padding-left: 20px;height: 30px;border: 1px solid black;border-radius: 5px;box-shadow: 1px 2px 1px 2px black;}
+    button{font-size:20px;padding-top: 10px;padding-bottom: 40px;padding-left: 20px;padding-right: 20px;color: white;background: #3d3c39;height: 40px;border-radius: 20px;cursor: pointer;font-weight: 900;box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;}
+  </style>
+
+    <div class="form">
+      <h1 style="text-align: center;">Form Validation</h1>
+        <form name="myForm" style="text-align: center;">
+          <label for="name">Name :</label></br>
+          <input type="text" id="name" name="name_input" required >
+          <span class="required" id="red1">* Enter valid name </span></br> 
+          <label for="phone">Phone :</label></br>
+          <input type="text" id="phone" name="phone_input" required>
+          <span class="required" id="red2">* Enter 10 digits</span></br>
+          <button type="submit" onclick="Form_validate(event)" value="Submit"> Submit </button>
+        </form>
+    </div>
+    
+  <script>
+    function Form_validate(event) {
+      event.preventDefault(); //  is used to prevent the default submission behavior of a form when the submit button is clicked. 
+
+      let name_match = document.forms["myForm"]["name_input"].value;
+      let phone_match = document.forms["myForm"]["phone_input"].value;
+
+      // Regular expressions for validation
+      let nameRegex = /^[a-zA-Z]{4,30}$/; // Allows letters only with limit
+      let phoneRegex = /^\d{10}$/; // Allows exactly 10 digits
+
+      // Perform validation checks
+      //test method is use for match in a string  //If it finds a match, it returns true, otherwise it returns false.
+      if (!nameRegex.test(name_match)) {
+        // console.log("name is not valid.");   // it will not execute cause of test method   // solution is preventDefault
+        document.getElementById('red1').style.display = "block";
+      }
+      else if (!phoneRegex.test(phone_match)) {
+        // alert("phone is not valid."); // it will execute without preventDefault
+        document.getElementById('red2').style.display = "block";
+      }
+      else{
+        alert("You enterd valid input !!!");
+        document.getElementById('red1').style.display = "none";
+        document.getElementById('red2').style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
